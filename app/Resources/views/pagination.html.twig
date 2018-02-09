@@ -1,0 +1,10 @@
+<div class="text-center custom-paginator">
+    {% for i in 1..pages %}
+        {% if i == currentPage %}
+            <a class="current-page" href="javascript://">{{ i }}</a>
+        {%  else %}
+            <a href="?page={{ i }}">{{ i }}</a>
+        {% endif %}
+
+    {% endfor %}
+</div>
