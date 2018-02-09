@@ -5,6 +5,8 @@
         </th>
         <td>
             <a href="javascript://" class="product-item" data-id="{{ prod.id }}">{{ prod.name }}</a>
+            <br>
+            <img style="display: none" onload="$(this).show();" width="150" src="{{ asset('uploads/images/' ~ prod.pic) }}" />
         </td>
         <td>
             {{ prod.description }}

@@ -81,6 +81,22 @@ class Product {
     private $name;
 
     /**
+     * @return mixed
+     */
+    public function getPic()
+    {
+        return $this->pic;
+    }
+
+    /**
+     * @param mixed $pic
+     */
+    public function setPic($pic)
+    {
+        $this->pic = $pic;
+    }
+
+    /**
      * @ORM\Column(type="decimal", scale=2)
      * @Assert\NotBlank()
      * @Assert\Type(type="double", message="Not valid number")
@@ -94,6 +110,12 @@ class Product {
      */
     private $description;
 
+
+    /**
+     * @ORM\Column(type="text")
+     * @Assert\Image()
+     */
+    private $pic;
 }
 
 ?>

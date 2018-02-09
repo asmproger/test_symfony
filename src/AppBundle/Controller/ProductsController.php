@@ -3,20 +3,23 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Service\CustomUploader;
 use AppBundle\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 
 class ProductsController extends Controller
 {
-
 
 
     /**
@@ -51,14 +54,28 @@ class ProductsController extends Controller
     /**
      * @Route("/products/add", name="products_add")
      */
-    public function addAction(Request $request)
+    public function addAction(Request $request, CustomUploader $cU)
     {
-        $form = $this->getProductForm(new Product());
+        $newProduct = new Product();
+        $form = $this->getProductForm($newProduct);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            /**
+             * @var \Symfony\Component\HttpFoundation\File\UploadedFile $file
+             */
+            $file = $newProduct->getPic();
+            $newName = $cU->upload($file);
+            /*$newName = md5(time()) . '.' . $file->guessExtension();
+            $file->move(
+                $this->getParameter('images_directory'),
+                $newName
+            );*/
+
             $em = $this->getDoctrine()->getManager();
             $product = $form->getData();
+            $product->setPic($newName);
 
             $em->getConnection()->beginTransaction();
             try {
@@ -89,7 +106,11 @@ class ProductsController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $product->getPic();
+            $newName = md5(time()) . '.' . $file->guessExtension();
+            $file->move($this->getParameter('images_directory'), $newName);
             $product = $form->getData();
+            $product->setPic($newName);
             $em = $this->getDoctrine()->getManager();
             $em->getConnection()->beginTransaction();
             try {
@@ -108,6 +129,7 @@ class ProductsController extends Controller
             'form' => $form->createView()
         ]);
     }
+
 
     /**
      * @Route("/products/remove/{id}", name="products_remove", requirements={"id"="\d+"})
@@ -137,15 +159,20 @@ class ProductsController extends Controller
         $formBuilder
             ->add('name', TextType::class, [
                 'label' => 'Name:',
-                'required' => false
+                'required' => 1
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'Description:',
-                'required' => false
+                'required' => 1
             ])
             ->add('price', NumberType::class, [
                 'label' => 'Price:',
-                'required' => false
+                'required' => 1
+            ])
+            ->add('pic', FileType::class, [
+                'label' => 'Image:',
+                'required' => 1,
+                'data_class' => null
             ])
             ->add('submit', SubmitType::class, [
                 'label' => $product->getId() ? 'Edit' : 'Add',

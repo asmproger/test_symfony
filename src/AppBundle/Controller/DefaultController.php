@@ -18,8 +18,8 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $page = $request->get('page',1 );
-        $ipp = 3;
+        $page = $request->get('page', 1);
+        $ipp = 10;
 
         /**
          * @var Doctrine\ORM\QueryBuilder $builder
@@ -38,8 +38,7 @@ class DefaultController extends Controller
         $productsEmpty = empty($products);
 
 
-        if($request->isMethod('post')) {
-            $resp = new JsonResponse();
+        if ($request->isMethod('post')) {
             $html = $this->renderView('paginator_page.html.twig', ['paginator' => $paginator->getIterator()]);
             return new JsonResponse(['html' => $html]);
         }
@@ -51,7 +50,22 @@ class DefaultController extends Controller
             'pages' => $pages,
             'paginator' => $paginator->getIterator(),
             'productsEmpty' => $productsEmpty,
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+            'base_dir' => realpath($this->getParameter('kernel.project_dir')) . DIRECTORY_SEPARATOR,
         ]);
+    }
+
+
+    /**
+     * @Route("/view-product/{id}", name="view_product", requirements={"id"="\d+"})
+     */
+    public function viewAction(Request $request)
+    {
+        $id = $request->get('id', 0);
+        if ($request->isMethod('post')) {
+            $product = $this->getDoctrine()->getRepository(Product::class)->find($id);
+            $html = $this->renderView('default/view.html.twig', ['product' => $product]);
+            return new JsonResponse(['status' => true, 'html' => $html]);
+        }
+        return new JsonResponse(['status' => false]);
     }
 }

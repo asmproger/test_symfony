@@ -1,0 +1,17 @@
+<a href="javascript://" class="back-to-list">Back</a>
+<div>
+    <p>
+        Title: {{ product.name }}
+    </p>
+    <p>
+        Description: {{ product.description }}
+    </p>
+    <p>
+        Price: {{ product.price }}
+    </p>
+    <p>
+        {% if product.pic %}
+            {{ asset('/upload/images/') ~ product.pic }}
+        {% endif %}
+    </p>
+</div>
