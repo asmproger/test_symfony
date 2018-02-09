@@ -3,9 +3,8 @@
 {% block body %}
     <div id="wrapper" xmlns="http://www.w3.org/1999/html">
         <div id="container">
-            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-
-            {% endif %}
+            {{ include('user_menu.html.twig') }}
+            <br>
             {{ form_start(form) }}
             <div class="form-group">
                 {{ form_label(form.name) }}

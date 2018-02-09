@@ -9,13 +9,15 @@
         <td>
             {{ prod.description }}
         </td>
-        <td>
-            {{ prod.price }}
-        </td>
-        <td>
-            {#<a href="products/edit/{{ prod.id }}">Edit</a>
-            <a href="products/remove/{{ prod.id }}"
-               onclick="if(!confirm('Are you shure?')) return false;">Remove</a>#}
-        </td>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <td>
+                {{ prod.price }}
+            </td>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <td>
+                <a href="products/edit/{{ prod.id }}">Edit</a>
+            </td>
+        {% endif %}
     </tr>
 {% endfor %}

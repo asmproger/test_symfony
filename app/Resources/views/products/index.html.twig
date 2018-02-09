@@ -3,9 +3,8 @@
 {% block body %}
     <div id="wrapper">
         <div id="container">
-            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                {{ include('products/user_menu.html.twig') }}
-            {% endif %}
+            {{ include('user_menu.html.twig') }}
+            <br>
             {% if isAdded == 1 %}
                 <div>
                     <p class="bg-success">Item added successfully.</p>

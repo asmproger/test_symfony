@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <script>
-        $(document).on('click', '.product-item', function(e) {
+        $(document).on('click', '.product-item', function (e) {
             var self = $(this);
             var id = self.data('id');
             alert(id);
@@ -22,12 +22,16 @@
                         <th>ID</th>
                         <th>Title</th>
                         <th>Descr</th>
-                        <th>Price</th>
-                        <th></th>
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <th>Price</th>
+                        {% endif %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <th></th>
+                        {% endif %}
                     </tr>
                     </thead>
                     <tbody>
-                        {{ include('paginator_page.html.twig') }}
+                    {{ include('paginator_page.html.twig') }}
                     </tbody>
                 </table>
                 {{ include('pagination.html.twig') }}
@@ -149,13 +153,15 @@
                 border: 1px solid gray;
                 padding: 3px 8px;
             }
+
             .custom-paginator a:hover {
                 text-decoration: none;
             }
+
             .custom-paginator a.current-page {
-                 border: 1px solid red;
-                 cursor: default;
-             }
+                border: 1px solid red;
+                cursor: default;
+            }
         }
     </style>
 {% endblock %}

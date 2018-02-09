@@ -25,7 +25,6 @@ class DefaultController extends Controller
          * @var Doctrine\ORM\QueryBuilder $builder
          *
          */
-
         $query = $this->getDoctrine()->getRepository(Product::class)->createQueryBuilder('p')->getQuery();
         $query->setFirstResult($ipp * ($page - 1));
         $query->setMaxResults($ipp);

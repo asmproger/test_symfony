@@ -1,4 +1,5 @@
 <?php
+
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -57,7 +58,10 @@ class User implements UserInterface, \Serializable
 
     public function getRoles()
     {
-        return array('ROLE_USER');
+        if ($this->name == 'admin') {
+            return ['ROLE_ADMIN'];
+        }
+        return ['ROLE_USER'];
     }
 
     public function eraseCredentials()

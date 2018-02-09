@@ -1,11 +1,15 @@
 <div class="text-right">
+    <a style="float: left;" href="/app_dev.php">Main Page</a>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a style="float: left; margin-left: 20px;" href="/app_dev.php/products">Manage Products</a>
+    {% endif %}
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         Hello, {{ app.user.username }}!
         <br>
-        <a href="logout">Logout</a>
+        <a href="/app_dev.php/logout">Logout</a>
     {% else %}
-        <a href="/login">Sign in</a>
+        <a href="/app_dev.php/login">Sign in</a>
         |
-        <a href="register">Create account</a>
+        <a href="/app_dev.php/register">Create account</a>
     {% endif %}
 </div>
