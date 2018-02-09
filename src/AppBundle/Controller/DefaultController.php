@@ -6,6 +6,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Product;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\ORM\QueryBuilder;
@@ -18,7 +19,7 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         $page = $request->get('page',1 );
-        $ipp = 2;
+        $ipp = 3;
 
         /**
          * @var Doctrine\ORM\QueryBuilder $builder
@@ -36,6 +37,14 @@ class DefaultController extends Controller
 
         $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
         $productsEmpty = empty($products);
+
+
+        if($request->isMethod('post')) {
+            $resp = new JsonResponse();
+            $html = $this->renderView('paginator_page.html.twig', ['paginator' => $paginator->getIterator()]);
+            return new JsonResponse(['html' => $html]);
+        }
+
 
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig', [

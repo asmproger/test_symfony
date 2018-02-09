@@ -1,6 +1,12 @@
 {% extends 'base.html.twig' %}
-
 {% block body %}
+    <script>
+        $(document).on('click', '.product-item', function(e) {
+            var self = $(this);
+            var id = self.data('id');
+            alert(id);
+        });
+    </script>
     <div id="wrapper">
         <div id="container">
             {{ include('user_menu.html.twig') }}
@@ -10,7 +16,7 @@
                     There is no products yet
                 </p>
             {% else %}
-                <table class="table table-condensed">
+                <table class="table table-condensed" id="products-table">
                     <thead>
                     <tr>
                         <th>ID</th>
@@ -21,27 +27,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for prod in paginator %}
-                        <tr>
-                            <th>
-                                {{ prod.id }}
-                            </th>
-                            <td>
-                                {{ prod.name }}
-                            </td>
-                            <td>
-                                {{ prod.description }}
-                            </td>
-                            <td>
-                                {{ prod.price }}
-                            </td>
-                            <td>
-                                {#<a href="products/edit/{{ prod.id }}">Edit</a>
-                                <a href="products/remove/{{ prod.id }}"
-                                   onclick="if(!confirm('Are you shure?')) return false;">Remove</a>#}
-                            </td>
-                        </tr>
-                    {% endfor %}
+                        {{ include('paginator_page.html.twig') }}
                     </tbody>
                 </table>
                 {{ include('pagination.html.twig') }}

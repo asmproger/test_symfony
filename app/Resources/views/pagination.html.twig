@@ -1,9 +1,40 @@
+<script>
+    var currentPage = parseInt({{ currentPage }});
+    $(document).on('click', '.custom-paginator a', function (e) {
+        var self = $(this);
+        var page = parseInt(self.data('page'));
+        if(page == currentPage) {
+            return;
+        }
+        $.ajax({
+            url: '/app_dev.php',
+            dataType: 'json',
+            type: 'post',
+            data: {
+                page: page
+            },
+            beforeSend: function () {
+                $('#products-table').css('opacity', 0.5);
+            },
+            success: function (response) {
+                $('#products-table').find('tbody').html(response.html);
+                $('.custom-paginator a.current-page').removeClass('current-page');
+                self.addClass('current-page');
+                currentPage = page;
+            },
+            complete: function () {
+                $('#products-table').css('opacity', 1);
+            }
+        });
+        return false;
+    });
+</script>
 <div class="text-center custom-paginator">
     {% for i in 1..pages %}
         {% if i == currentPage %}
-            <a class="current-page" href="javascript://">{{ i }}</a>
-        {%  else %}
-            <a href="?page={{ i }}">{{ i }}</a>
+            <a data-page="{{ i }}" class="current-page" href="javascript://">{{ i }}</a>
+        {% else %}
+            <a data-page="{{ i }}" href="?page={{ i }}">{{ i }}</a>
         {% endif %}
 
     {% endfor %}
