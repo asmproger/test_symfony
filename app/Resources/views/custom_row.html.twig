@@ -4,8 +4,11 @@
 
     {# you can use fields defined in the the Admin class #}
 
-    {{ object|render_list_element(admin.list['name']) }}
-    <td><img style="display: none;" onload="$(this).show();" width="100" src="{{ asset('/uploads/images/') ~ object.pic }}" /></td>
+{#    {{ object|render_list_element(admin.list['name']) }}
+        {{ object|render_list_element(admin.list['pic']) }} #}
+    <td objectid="{{ object.id }}">
+        <img style="display: none;" onload="$(this).show();" width="100" src="{{ asset('/uploads/images/') ~ object.pic }}" />
+    </td>
 
 
 

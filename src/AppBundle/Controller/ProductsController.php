@@ -17,13 +17,15 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-
+// first admin (before SonataAdminBundle )
 class ProductsController extends Controller
 {
 
 
     /**
      * @Route("/products", name="products_index")
+     *
+     * products list for admin
      */
     public function indexAction(Request $request)
     {
@@ -53,6 +55,8 @@ class ProductsController extends Controller
 
     /**
      * @Route("/products/add", name="products_add")
+     *
+     * adding of new product
      */
     public function addAction(Request $request, CustomUploader $cU)
     {
@@ -65,6 +69,7 @@ class ProductsController extends Controller
             /**
              * @var \Symfony\Component\HttpFoundation\File\UploadedFile $file
              */
+            // gilr uploading with custom service
             $file = $newProduct->getPic();
             $newName = $cU->upload($file);
             /*$newName = md5(time()) . '.' . $file->guessExtension();
@@ -97,6 +102,8 @@ class ProductsController extends Controller
 
     /**
      * @Route("/products/edit/{id}", name="products_edit", requirements={"id"="\d+"})
+     *
+     * product editing
      */
     public function editAction($id, Request $request)
     {
@@ -106,6 +113,8 @@ class ProductsController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // file processed without services
             $file = $product->getPic();
             $newName = md5(time()) . '.' . $file->guessExtension();
             $file->move($this->getParameter('images_directory'), $newName);
@@ -153,6 +162,8 @@ class ProductsController extends Controller
         return $this->redirectToRoute('products_index', []);
     }
 
+    // here we can get product form for creation or editing
+    // it will check, if product empty or no, and get form
     private function getProductForm(Product $product)
     {
         $formBuilder = $this->createFormBuilder($product);

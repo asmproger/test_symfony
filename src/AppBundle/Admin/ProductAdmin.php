@@ -81,7 +81,7 @@ class ProductAdmin extends AbstractAdmin
     {
         $listMapper
             ->addIdentifier('name')
-//            ->add('pic')
+            //->add('pic')
             ;
     }
 

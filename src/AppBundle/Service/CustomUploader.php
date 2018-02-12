@@ -5,6 +5,7 @@ namespace AppBundle\Service;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 class CustomUploader
 {
+    //simple service class for easy photo uploading
     private $dir;
 
     public function __construct($tDir)

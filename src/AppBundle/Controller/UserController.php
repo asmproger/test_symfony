@@ -15,6 +15,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
+// Users managing controller. out of date with SonataAdminBundle
+
 class UserController extends Controller
 {
 
@@ -23,7 +25,7 @@ class UserController extends Controller
      */
     public function login2Action(Request $request, AuthenticationUtils $authUtils)
     {
-
+        // standart symfony login system
         $error = $authUtils->getLastAuthenticationError();
         $lastUser = $authUtils->getLastUsername();
 
@@ -39,34 +41,14 @@ class UserController extends Controller
      */
     public function register2Action(Request $request)
     {
+        // ugly method
 
         if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             return $this->redirectToRoute('products_index', []);
         }
 
         $user = new User();
-        $formBuilder = $this->createFormBuilder($user);
-        $formBuilder
-            ->add('name', TextType::class, [
-                'label' => 'Username',
-                'required' => false
-            ])
-            ->add('password', PasswordType::class, [
-                'label' => 'Password',
-                'required' => false
-            ])
-            ->add('email', EmailType::class, [
-                'label' => 'Email',
-                'required' => false
-            ])
-            ->add('age', NumberType::class, [
-                'label' => 'Age',
-                'required' => false
-            ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'Create account'
-            ]);
-        $form = $formBuilder->getForm();
+        $form = $this->getForm($user);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -94,5 +76,34 @@ class UserController extends Controller
         return $this->render('user/register.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+
+    // sorry, i doesn't make it with another class
+    private function getForm($user)
+    {
+        $formBuilder = $this->createFormBuilder($user);
+        $formBuilder
+            ->add('name', TextType::class, [
+                'label' => 'Username',
+                'required' => false
+            ])
+            ->add('password', PasswordType::class, [
+                'label' => 'Password',
+                'required' => false
+            ])
+            ->add('email', EmailType::class, [
+                'label' => 'Email',
+                'required' => false
+            ])
+            ->add('age', NumberType::class, [
+                'label' => 'Age',
+                'required' => false
+            ])
+            ->add('submit', SubmitType::class, [
+                'label' => 'Create account'
+            ]);
+        $form = $formBuilder->getForm();
+        return $form;
     }
 }

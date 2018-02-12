@@ -11,10 +11,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\ORM\QueryBuilder;
 
+//just first days playground, pure CRUD operations with Symfony
 class DefaultController extends Controller
 {
     /**
      * @Route("/", name="homepage")
+     *
+     * test list action for products
      */
     public function indexAction(Request $request)
     {
@@ -39,6 +42,7 @@ class DefaultController extends Controller
 
 
         if ($request->isMethod('post')) {
+            // if there is ajax request - return just data without full template
             $html = $this->renderView('paginator_page.html.twig', ['paginator' => $paginator->getIterator()]);
             return new JsonResponse(['html' => $html]);
         }
@@ -57,6 +61,8 @@ class DefaultController extends Controller
 
     /**
      * @Route("/view-product/{id}", name="view_product", requirements={"id"="\d+"})
+     *
+     * test view action for my first entities
      */
     public function viewAction(Request $request)
     {

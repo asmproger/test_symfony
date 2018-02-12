@@ -25,15 +25,6 @@ class PlayController extends Controller
             );*/
         }
 
-
-        /*$em = $this->getDoctrine()->getManager();
-        $product = new Product();
-        $product->setDescription('Lorem ipsum');
-        $product->setName('fish_text');
-        $product->setPrice(128);
-        $em->persist($product);
-        $em->flush();
-        $id = $product->getId();*/
         // replace this example code with whatever you need
         return $this->render('play/index.html.twig', [
             'product' => $product,

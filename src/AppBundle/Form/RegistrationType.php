@@ -15,6 +15,8 @@ use Symfony\Component\Form\FormConfigBuilderInterface;
 
 class RegistrationType extends AbstractType
 {
+    // custom form for SonataAdminBundle admin
+    // here we can add any filed (for example - age)
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
