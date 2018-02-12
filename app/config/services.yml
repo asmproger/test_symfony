@@ -45,6 +45,8 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, label: Product }
         public: true
+        calls:
+            - [ setTemplate, [inner_list_row, "custom_row.html.twig"] ]
 
     admin.user:
         class: AppBundle\Admin\UserAdmin

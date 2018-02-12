@@ -27,7 +27,7 @@ class User extends BaseUser
      */
     public function encryptPassword()
     {
-        $this->password = password_hash($this->password, PASSWORD_BCRYPT);
+        //$this->password = password_hash($this->password, PASSWORD_BCRYPT);
     }
 
     /**
@@ -72,8 +72,8 @@ class User extends BaseUser
 
     public function getRoles()
     {
-        if ($this->name == 'admin') {
-            return ['ROLE_ADMIN'];
+        if ($this->username == 'admin4') {
+            return ['ROLE_SUPER_ADMIN'];
         }
         return ['ROLE_USER'];
     }
@@ -155,7 +155,7 @@ class User extends BaseUser
 
     /**
      * @ORM\Column(type="integer")
-     * @Assert\Blank()
+     * @Assert\NotBlank()
      * @Assert\Range(min=18, max=110, minMessage="You should be at least 18!", maxMessage="You are too old for this shit. Sorry.")
      */
     protected $age;

@@ -21,7 +21,8 @@ class UserAdmin extends AbstractAdmin
         $formMapper
             ->add('name', 'text')
             ->add('email', 'text')
-            ->add('age', 'number');
+            ->add('age', 'number')
+            ;
 
         if ($this->getSubject()->isNew()) {
             $formMapper->add('password', 'password', [

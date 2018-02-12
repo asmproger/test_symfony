@@ -134,6 +134,10 @@ class Product
         return $this->pic;
     }
 
+    public function getPicPath() {
+        return 'uploads/images/' . $this->pic;
+    }
+
     /**
      * @param mixed $pic
      */
@@ -159,7 +163,6 @@ class Product
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\Image()
      */
     private $pic;
 }

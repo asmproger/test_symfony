@@ -76,7 +76,6 @@ swiftmailer:
     password: '%mailer_password%'
     spool: { type: memory }
 
-
   #Sonata block
 sonata_block:
     blocks:
@@ -89,7 +88,7 @@ fos_user:
     user_class: AppBundle\Entity\User
     registration:
         form:
-            type: app_form_registration
+            type: AppBundle\Form\RegistrationType
             validation_groups: [CustomRegistration, Default]
 
 #    group:
