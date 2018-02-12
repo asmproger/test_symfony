@@ -29,14 +29,14 @@ services:
         class: AppBundle\Admin\CategoryAdmin
         arguments: [~, AppBundle\Entity\Category, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Category }
+            - { group: Wtf, name: sonata.admin, manager_type: orm, label: Category }
         public: true
 
     admin.blog_post:
         class: AppBundle\Admin\BlogPostAdmin
         arguments: [~, AppBundle\Entity\BlogPost, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Blog post }
+            - { group: Wtf, name: sonata.admin, manager_type: orm, label: Blog post }
         public: true
 
     admin.product:
@@ -45,6 +45,14 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, label: Product }
         public: true
+
+    admin.user:
+        class: AppBundle\Admin\UserAdmin
+        arguments: [~, AppBundle\Entity\User, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: User }
+        public: true
+        roles: [ROLE_ADMIN]
 
     #my_custom_uploader:
         #public: true

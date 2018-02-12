@@ -7,15 +7,32 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use FOS\UserBundle\Model\User as BaseUser;
 
 /**
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(name="user")user
  * @UniqueEntity("email")
  * @UniqueEntity("name")
  */
-class User implements UserInterface, \Serializable
+//class User implements UserInterface, \Serializable
+class User extends BaseUser
 {
+
+    public function __construct() {
+        parent::__construct();
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function encryptPassword()
+    {
+        $this->password = password_hash($this->password, PASSWORD_BCRYPT);
+    }
+
     /**
      * @return mixed
      */
@@ -173,6 +190,12 @@ class User implements UserInterface, \Serializable
     public function unserialize($serialized)
     {
         list($this->id, $this->name, $this->password) = unserialize($serialized);
+    }
+
+
+    public function isNew()
+    {
+        return empty($this->name) && empty($this->password);
     }
 }
 

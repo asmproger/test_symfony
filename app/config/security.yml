@@ -2,10 +2,17 @@
 # https://symfony.com/doc/current/security.html
 security:
     encoders:
-        AppBundle\Entity\User:
-            algorithm: bcrypt
+        FOS\UserBundle\Model\UserInterface: bcrypt
+        #AppBundle\Entity\User:
+        #    algorithm: bcrypt
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
+        fos_usebundle:
+            id: fos_user.user_provider.username
         database-provider:
             entity:
                 class: AppBundle:User
@@ -27,15 +34,20 @@ security:
             security: false
 
         main:
-            anonymous: ~
+            pattern: ^/
             form_login:
-                login_path: login
-                check_path: login
-                default_target_path: /
-            logout:
-                path: /logout
-                target: /login
-            provider: database-provider
+                provider: fos_userbundle
+                csrf_provider: security.csrf.token_manager
+            logout: true
+            anonymous: true
+            #form_login:
+            #    login_path: login
+            #    check_path: login
+            #    default_target_path: /
+            #logout:
+            #    path: /logout
+            #    target: /login
+            #provider: database-provider
             # activate different ways to authenticate
 
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
@@ -44,6 +56,10 @@ security:
             # https://symfony.com/doc/current/security/form_login_setup.html
             #form_login: ~
     access_control:
+        - { path: ^/login$, role: IS_AUTHENTICAED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICAED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICAED_ANONYMOUSLY }
+        - { path: ^/admin/, role: ROLE_ADMIN }
         # require ROLE_ADMIN for /admin*
         #- { path: ^/products/edit, roles: ROLE_ADMIN }
         #- { path: ^/products/remove , roles: ROLE_ADMIN }
