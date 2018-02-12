@@ -7,23 +7,29 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\ORM\Mapping\AttributeOverride;
+use Doctrine\ORM\Mapping\AttributeOverrides;
+use Doctrine\ORM\Mapping\Column;
 use FOS\UserBundle\Model\User as BaseUser;
 
 /**
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks()
- * @ORM\Table(name="user")user
+ * @ORM\Table(name="user")
  * @UniqueEntity("email")
- * @UniqueEntity("name")
+ * @AttributeOverrides({
+ *      @AttributeOverride(name="email",
+ *          column=@Column(
+ *              nullable = false,
+ *              unique   = true,
+ *              length   = 123
+ *          )
+ *      )
+ * })
  */
 //class User implements UserInterface, \Serializable
 class User extends BaseUser
 {
-
-    public function __construct() {
-        parent::__construct();
-    }
-
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
@@ -36,18 +42,18 @@ class User extends BaseUser
     /**
      * @return mixed
      */
-    public function getEmail()
+    /*public function getEmail()
     {
         return $this->email;
-    }
+    }*/
 
     /**
      * @param mixed $email
      */
-    public function setEmail($email)
+    /*public function setEmail($email)
     {
         $this->email = $email;
-    }
+    }*/
 
     /**
      * @return mixed
@@ -112,10 +118,10 @@ class User extends BaseUser
     /**
      * @return mixed
      */
-    public function getUsername()
+    /*public function getUsername()
     {
         return $this->name;
-    }
+    }*/
 
     public function getName()
     {
@@ -130,40 +136,45 @@ class User extends BaseUser
         $this->name = $name;
     }
 
+    /*public function setUsername($name)
+    {
+        $this->name = $name;
+    }*/
+
 
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\Blank(groups={"registration"})
      */
-    private $name;
+    protected $name;
 
-    /**
-     * @ORM\Column(type="string", length=100)
-     * @Assert\NotBlank(groups={"registration"})
-     * @Assert\Email(groups={"registration"})
-     */
-    private $email;
+//    /**
+//     * @ORM\Column(type="string", length=100)
+//     * @Assert\NotBlank(groups={"registration"})
+//     * @Assert\Email(groups={"registration"})
+//     */
+//    protected $email;
 
     /**
      * @ORM\Column(type="integer")
-     * @Assert\NotBlank()
+     * @Assert\Blank()
      * @Assert\Range(min=18, max=110, minMessage="You should be at least 18!", maxMessage="You are too old for this shit. Sorry.")
      */
-    private $age;
+    protected $age;
 
-    /**
-     * @ORM\Column(type="string", length=100)
-     * @Assert\NotBlank()
-     * @Assert\Length(min=6, minMessage="Password is too short")
-     */
-    private $password;
+//    /**
+//     * @ORM\Column(type="string", length=100)
+//     * @Assert\NotBlank()
+//     * @Assert\Length(min=6, minMessage="Password is too short")
+//     */
+//    protected $password;
 
     /**
      * String representation of object

@@ -19,9 +19,9 @@ class UserController extends Controller
 {
 
     /**
-     * @Route("/login", name="login")
+     * @Route("/login2", name="login2")
      */
-    public function loginAction(Request $request, AuthenticationUtils $authUtils)
+    public function login2Action(Request $request, AuthenticationUtils $authUtils)
     {
 
         $error = $authUtils->getLastAuthenticationError();
@@ -35,9 +35,9 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/register", name="user_register")
+     * @Route("/register2", name="user_register2")
      */
-    public function registerAction(Request $request)
+    public function register2Action(Request $request)
     {
 
         if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
