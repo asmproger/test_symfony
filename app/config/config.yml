@@ -18,7 +18,7 @@ framework:
         strict_requirements: ~
     form: ~
     csrf_protection: ~
-    validation: { enable_annotations: true }
+    validation: { enabled: true, enable_annotations: true }
     #serializer: { enable_annotations: true }
     default_locale: '%locale%'
     trusted_hosts: ~
@@ -76,6 +76,7 @@ swiftmailer:
     password: '%mailer_password%'
     spool: { type: memory }
 
+
   #Sonata block
 sonata_block:
     blocks:
@@ -86,6 +87,10 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: AppBundle\Entity\User
+    registration:
+        form:
+            type: app_form_registration
+            validation_groups: [CustomRegistration, Default]
 
 #    group:
 #        group_class: Sonata\UserBundle\Entity\BaseGroup

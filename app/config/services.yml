@@ -54,6 +54,11 @@ services:
         public: true
         roles: [ROLE_ADMIN]
 
+    app.form.registration:
+        class: AppBundle\Form\RegistrationType
+        tags:
+            - { name: form.type, alis: app_form_registration }
+
     #my_custom_uploader:
         #public: true
     #    class: AppBundle\Service\CustomUploader

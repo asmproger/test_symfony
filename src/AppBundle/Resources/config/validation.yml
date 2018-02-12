@@ -1,0 +1,16 @@
+AppBundle\Entity\User:
+    properties:
+        email:
+            - NotBlank: ~
+            - Email: ~
+        username:
+            - NotBlank: ~
+        plainPassword:
+            - NotBlank:
+                message: "Enter password"
+            - Length:
+                min: 3
+                max: 10
+                minMessage: "too short"
+                maxMessage: "too long"
+                groups: [CustomRegistration]

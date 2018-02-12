@@ -17,15 +17,6 @@ use FOS\UserBundle\Model\User as BaseUser;
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(name="user")
  * @UniqueEntity("email")
- * @AttributeOverrides({
- *      @AttributeOverride(name="email",
- *          column=@Column(
- *              nullable = false,
- *              unique   = true,
- *              length   = 123
- *          )
- *      )
- * })
  */
 //class User implements UserInterface, \Serializable
 class User extends BaseUser
