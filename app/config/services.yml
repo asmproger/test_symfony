@@ -34,9 +34,16 @@ services:
 
     admin.blog_post:
         class: AppBundle\Admin\BlogPostAdmin
-        arguments: [~, AppBundle\Entity\Category, ~]
+        arguments: [~, AppBundle\Entity\BlogPost, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Blog post }
+        public: true
+
+    admin.product:
+        class: AppBundle\Admin\ProductAdmin
+        arguments: [~, AppBundle\Entity\Product, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Product }
         public: true
 
     #my_custom_uploader:

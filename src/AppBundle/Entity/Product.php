@@ -3,13 +3,59 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(name="product")
  */
-class Product {
+class Product
+{
+
+    const PATH_TO_UPLOADED = '/var/www/first/web/uploads/images/';
+
+    private $file;
+
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+    }
+
+    public function upload()
+    {
+        if (null === $this->getFile()) {
+            return;
+        }
+        $newName = md5(time()) . '.' . $this->getFile()->guessExtension();
+
+        $this->getFile()->move(
+            self::PATH_TO_UPLOADED,
+            $newName
+        );
+
+        $this->pic = $newName;
+        $this->setFile(null);
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function lifecycleFileUpload() {
+        $this->upload();
+    }
+    public function refreshUpdated() {
+        //$this->setUpdated(new \DateTime());
+    }
+
+
     /**
      * @return mixed
      */

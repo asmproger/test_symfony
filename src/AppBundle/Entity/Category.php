@@ -14,13 +14,18 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Category
 {
+    public function __toString()
+    {
+        return $this->getName();
+    }
 
     public function __construct()
     {
         $this->blogPosts = new ArrayCollection();
     }
 
-    public function getBlogPosts() {
+    public function getBlogPosts()
+    {
         return $this->blogPosts;
     }
 
