@@ -7,6 +7,7 @@
  * */
 namespace AppBundle\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -45,6 +46,7 @@ class CurrencyResult
     }
 
     /**
+     * Returns array, decoded from stored json
      * @return mixed
      */
     public function getData()
@@ -53,6 +55,8 @@ class CurrencyResult
     }
 
     /**
+     * Save json encoded array
+     *
      * @param mixed $data
      */
     public function setData(array $data)
@@ -61,6 +65,8 @@ class CurrencyResult
     }
 
     /**
+     * Let's format our date!
+     *
      * @return mixed
      */
     public function getDate()
@@ -78,7 +84,7 @@ class CurrencyResult
     /**
      * @param mixed $date
      */
-    public function setDate($date)
+    public function setDate(DateTime $date)
     {
         $this->date = $date;
     }
