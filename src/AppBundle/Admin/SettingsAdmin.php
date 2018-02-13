@@ -8,6 +8,7 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\Setting;
 use AppBundle\Entity\User;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -17,9 +18,32 @@ use Sonata\AdminBundle\Form\FormMapper;
 class SettingsAdmin extends AbstractAdmin
 {
 
-    public function indexAction()
+    protected function configureFormFields(FormMapper $formMapper)
     {
-        die('settings controller index action');
+        $formMapper
+            ->add('skey', 'text')
+            ->add('value', 'text')
+            ;
     }
 
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        $datagridMapper
+            ->add('skey')
+            ->add('value')
+        ;
+    }
+
+    protected function configureListFields(ListMapper $listMapper)
+    {
+        $listMapper
+            ->addIdentifier('skey');
+    }
+    public function toString($obj) {
+        if(is_object($obj) && $obj instanceof Setting) {
+            $obj->getSkey();
+        } else {
+            return 'Setting';
+        }
+    }
 }

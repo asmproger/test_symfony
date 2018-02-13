@@ -12,11 +12,6 @@ _sonata_admin:
     type: sonata_admin
     prefix: /admin
 
-admin_settings:
-    path: /admin/settings
-    controller: AppBundle/Admin/SettingsAdmin
-    #defaults: { _controller: AppBundle:Admin:SettingsAdmin:index}
-
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 

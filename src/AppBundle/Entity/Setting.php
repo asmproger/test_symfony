@@ -3,11 +3,13 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Setting
- *
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\SettingRepository")
  * @ORM\Table(name="setting")
+ * @UniqueEntity("skey")
  */
 class Setting
 {
@@ -25,7 +27,7 @@ class Setting
      *
      * @ORM\Column(type="string", length=255)
      */
-    private $key;
+    private $skey;
 
     /**
      * @var string
@@ -53,17 +55,17 @@ class Setting
     /**
      * @return string
      */
-    public function getKey()
+    public function getSkey()
     {
-        return $this->key;
+        return $this->skey;
     }
 
     /**
-     * @param string $key
+     * @param string $skey
      */
-    public function setKey($key)
+    public function setSkey($skey)
     {
-        $this->key = $key;
+        $this->skey = $skey;
     }
 
     /**
@@ -81,5 +83,6 @@ class Setting
     {
         $this->value = $value;
     }
+
 }
 

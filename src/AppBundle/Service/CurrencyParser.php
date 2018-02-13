@@ -9,6 +9,7 @@ namespace AppBundle\Service;
 
 
 use AppBundle\Entity\CurrencyResult;
+use AppBundle\Entity\Setting;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 
 class CurrencyParser
@@ -72,7 +73,7 @@ class CurrencyParser
                 $connection->rollback();
             }
         }
-
+        $this->doctrine->getRepository(Setting::class)->setSetting('currency_last_update ', time());
     }
 
     /**
