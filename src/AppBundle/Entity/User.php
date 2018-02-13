@@ -142,7 +142,6 @@ class User extends BaseUser
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Assert\Blank(groups={"registration"})
      */
     protected $name;
 
@@ -155,7 +154,6 @@ class User extends BaseUser
 
     /**
      * @ORM\Column(type="integer")
-     * @Assert\NotBlank()
      * @Assert\Range(min=18, max=110, minMessage="You should be at least 18!", maxMessage="You are too old for this shit. Sorry.")
      */
     protected $age;

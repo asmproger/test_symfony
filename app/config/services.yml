@@ -47,6 +47,7 @@ services:
         public: true
         calls:
             - [ setTemplate, [inner_list_row, "custom_row.html.twig"] ]
+            - [ setTemplate, [edit, "custom_product_form.html.twig"] ]
 
     admin.user:
         class: AppBundle\Admin\UserAdmin
@@ -60,6 +61,20 @@ services:
         class: AppBundle\Form\RegistrationType
         tags:
             - { name: form.type, alis: app_form_registration }
+
+
+    AppBundle\Command\CustomCommand:
+        public: true
+        tags: [console.command]
+        arguments:
+            $doctrine: '@doctrine'
+
+#    custom_command:
+#        public: true
+#        class: AppBundle\Command\CustomCommand
+#        arguments: ~
+#        tags: [console.command]
+#    AppBundle\Command\CustomCommand: @custom_command
 
     #my_custom_uploader:
         #public: true
