@@ -40,11 +40,11 @@
         <div id="container">
             {{ include('user_menu.html.twig') }}
             <br>
-            <div>
-                <ul>
+            <div id="currency-styles">
+                <ul class="main-wrapper">
                     {% for item in currenciesData %}
                         <li>
-                            {{ item.date }}
+                            <span>{{ item.date }}</span>
                             <ul>
                                 {% for t in item.data %}
                                     <li>{{ t }}</li>

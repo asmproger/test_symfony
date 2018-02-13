@@ -79,5 +79,4 @@ class CustomCommand extends Command
         $result = $parser->getResult();
         $oFace->writeln($result);
     }
-
 }

@@ -1,0 +1,6 @@
+#currency-styles ul {
+    list-style: none;
+}
+#currency-styles span {
+    font-weight: bold;
+}
