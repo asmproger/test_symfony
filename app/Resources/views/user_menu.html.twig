@@ -3,8 +3,8 @@
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="{%  if active_menu == 'default' %} active {% endif %}"><a href="/app_dev.php">Main Page</a></li>
-                <li class="{%  if active_menu == 'products' %} active {% endif %}"><a href="/app_dev.php/products">Manage Products</a></li>
+                <li class="{%  if active_menu is defined and active_menu == 'default' %} active {% endif %}"><a href="/app_dev.php">Main Page</a></li>
+                <li class="{%  if active_menu is defined and active_menu == 'products' %} active {% endif %}"><a href="/app_dev.php/products">Manage Products</a></li>
             </ul>
             <p class="navbar-text navbar-right">
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
