@@ -6,6 +6,10 @@
  * Time: 9:57 AM
  */
 
+/*
+ * Custom console command for fetching & parsing xml with currencies values
+ */
+
 namespace AppBundle\Command;
 
 use Symfony\Component\Console\Command\Command;
@@ -19,6 +23,11 @@ class CustomCommand extends Command
 {
     private $doctrine;
 
+    /**
+     * CustomCommand constructor.
+     * This is a service, so a want to get Doctrine here through constructor
+     * @param Registry $doctrine
+     */
     public function __construct(Registry $doctrine)
     {
         $this->doctrine = $doctrine;

@@ -13,16 +13,21 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 class UserAdmin extends AbstractAdmin
 {
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        //$collection->add('index', $this->getRouterIdParameter() . '/index');
+    }
+
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
             ->add('name', 'text')
             ->add('email', 'text')
-            ->add('age', 'number')
-            ;
+            ->add('age', 'number');
 
         if ($this->getSubject()->isNew()) {
             $formMapper->add('password', 'password', [
@@ -53,7 +58,15 @@ class UserAdmin extends AbstractAdmin
         $listMapper
             ->addIdentifier('name')
             ->add('email')
-            ->add('age');
+            ->add('age')
+            /*->add('_action', null, [
+                'actions' => [
+                    'index' => [
+                        'template' => '@App/admin/settings/list__action_index.html.twig'
+                    ]
+                ]
+            ])*/
+        ;
     }
 
     public function toString($object)

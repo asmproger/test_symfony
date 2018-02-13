@@ -4,7 +4,7 @@
         $(document).on('click', '.back-to-list', function (e) {
             var $container = $('#container-products');
             var $product = $('#container-product');
-            if($container.length && $product.length) {
+            if ($container.length && $product.length) {
                 $product.hide();
                 $container.show();
             }
@@ -40,6 +40,21 @@
         <div id="container">
             {{ include('user_menu.html.twig') }}
             <br>
+            <div>
+                <ul>
+                    {% for item in currenciesData %}
+                        <li>
+                            {{ item.date }}
+                            <ul>
+                                {% for t in item.data %}
+                                    <li>{{ t }}</li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <br>
             <div id="container-products">
                 {% if productsEmpty %}
                     <p>
@@ -70,6 +85,7 @@
             <div id="container-product" style="display: none;">
 
             </div>
+
         </div>
     </div>
 {% endblock %}

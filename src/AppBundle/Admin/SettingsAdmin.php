@@ -16,49 +16,10 @@ use Sonata\AdminBundle\Form\FormMapper;
 
 class SettingsAdmin extends AbstractAdmin
 {
-    protected function configureFormFields(FormMapper $formMapper)
-    {
-        $formMapper
-            ->add('name', 'text')
-            ->add('email', 'text')
-            ->add('age', 'number')
-            ;
 
-        if ($this->getSubject()->isNew()) {
-            $formMapper->add('password', 'password', [
-                'required' => false
-            ]);
-        }
-        /*->add('category', 'sonata_type_model', [
-                'class' => 'AppBundle\Entity\Category',
-                //'choice_label' => 'name'
-                'property' => 'name'
-            ])*/
+    public function indexAction()
+    {
+        die('settings controller index action');
     }
 
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-        $datagridMapper
-            ->add('name')
-            ->add('email')/*->add('category', null, [], 'entity', [
-                    'class' => 'AppBundle\Entity\Category',
-                    'choice_label' => 'name'
-                ]
-            )*/
-        ;
-    }
-
-    protected function configureListFields(ListMapper $listMapper)
-    {
-        $listMapper
-            ->addIdentifier('name')
-            ->add('email')
-            ->add('age');
-    }
-
-    public function toString($object)
-    {
-        return $object instanceof User ?
-            $object->getName() : 'User';
-    }
 }

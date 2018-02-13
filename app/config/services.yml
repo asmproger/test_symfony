@@ -52,6 +52,10 @@ services:
     admin.user:
         class: AppBundle\Admin\UserAdmin
         arguments: [~, AppBundle\Entity\User, ~]
+        #arguments:
+            #- null
+            #- AppBundle\Entity\User
+            #- AppBundle\Admin:SettingsAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, label: User }
         public: true
@@ -62,6 +66,12 @@ services:
         tags:
             - { name: form.type, alis: app_form_registration }
 
+    admin.setting:
+        class: AppBundle\Admin\SettingsAdmin
+        arguments: [~, AppBundle\Entity\Setting, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Settings }
+        public: true
 
     AppBundle\Command\CustomCommand:
         public: true

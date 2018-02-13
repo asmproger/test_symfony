@@ -3,6 +3,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\CurrencyResult;
 use AppBundle\Entity\Product;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -47,9 +48,20 @@ class DefaultController extends Controller
             return new JsonResponse(['html' => $html]);
         }
 
+        /**
+         * @var \Doctrine\ORM\QueryBuilder $queryBuilder
+         */
+        $queryBuilder = $this->getDoctrine()->getRepository(CurrencyResult::class)->createQueryBuilder('c');
+        $queryBuilder
+            ->setMaxResults(1)
+            ->orderBy('c.id', 'DESC')
+        ;
+        $query = $queryBuilder->getQuery();
+        $currenciesData = $query->getResult();
 
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig', [
+            'currenciesData' => $currenciesData,
             'currentPage' => $page,
             'pages' => $pages,
             'paginator' => $paginator->getIterator(),

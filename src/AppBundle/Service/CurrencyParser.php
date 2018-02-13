@@ -1,5 +1,10 @@
 <?php
-
+/*
+ * XML parser class (using DOM Element)
+ *
+ * parse & store currencies values
+ *
+ */
 namespace AppBundle\Service;
 
 
@@ -33,6 +38,9 @@ class CurrencyParser
         /**
          * @var \DOMElement $item
          */
+        /*
+         * Parse xml - one row or all, depends from $this->code
+         * */
         foreach ($this->document->getElementsByTagName('Currency') as $item) {
             $value = $item->getElementsByTagName('Value')[0]->textContent;
             $currency = $item->getAttribute('ISOCode');
@@ -44,6 +52,9 @@ class CurrencyParser
             }
         }
 
+        /*
+         * Saving parse result in db, if $save is true
+         * */
         if($save) {
             $em = $this->doctrine->getManager();
             $connection = $em->getConnection();
@@ -64,6 +75,10 @@ class CurrencyParser
 
     }
 
+    /**
+     * Just returns parsing result (or exception)
+     *
+     * */
     public function getResult()
     {
         if (!$this->result) {

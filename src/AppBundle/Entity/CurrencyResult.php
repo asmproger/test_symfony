@@ -65,7 +65,14 @@ class CurrencyResult
      */
     public function getDate()
     {
-        return $this->date;
+        new \DateTime();
+        $timeStr = '';
+        if(is_object($this->date) && $this->date instanceof \DateTime) {
+            $timeStr = $this->date->format('Y-m-d H:i:s');
+        } else {
+            $timeStr = 'invalid date';
+        }
+        return $timeStr;
     }
 
     /**
