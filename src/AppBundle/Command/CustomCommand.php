@@ -53,11 +53,6 @@ class CustomCommand extends Command
 
         $period *= 60;
 
-        var_dump($period);
-        var_dump('lastUpdate - ' . $lastUpdate);
-        var_dump('currentTime - ' . time());
-        var_dump('dT - ' . (time() - $lastUpdate));
-
 
         if( (time() - $lastUpdate) < $period) {
             $oFace->writeln('It\'s not time for this');

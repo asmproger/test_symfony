@@ -40,19 +40,24 @@
         <div id="container">
             {{ include('user_menu.html.twig') }}
             <br>
-            <div id="currency-styles">
-                <ul class="main-wrapper">
-                    {% for item in currenciesData %}
-                        <li>
-                            <span>{{ item.date }}</span>
-                            <ul>
-                                {% for t in item.data %}
-                                    <li>{{ t }}</li>
-                                {% endfor %}
-                            </ul>
-                        </li>
-                    {% endfor %}
-                </ul>
+            <div class="panel panel-default" id="currency-styles">
+                <div class="panel-heading" aria-expanded="false" data-toggle="collapse" data-target="#currencies-panel">
+                    <h3 class="panel-title">Currencies values</h3>
+                </div>
+                <div class="panel-body collapse" id="currencies-panel">
+                    <ul class="main-wrapper">
+                        {% for item in currenciesData %}
+                            <li>
+                                <span>{{ item.date }}</span>
+                                <ul>
+                                    {% for t in item.data %}
+                                        <li>{{ t }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
             <br>
             <div id="container-products">
@@ -89,7 +94,6 @@
         </div>
     </div>
 {% endblock %}
-
 {% block stylesheets %}
     <style>
         body {

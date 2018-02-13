@@ -10,10 +10,10 @@
                     <p class="bg-success">Item added successfully.</p>
                 </div>
             {% endif %}
-            <div>
-                <a class="btn btn-default" href="products/add">Add</a>
+            <div class="text-right">
+                <a class="btn btn-success" href="products/add">Add</a>
             </div>
-            <table class="table table-condensed">
+            <table class="table table-condensed table-hover">
                 <thead>
                 <tr>
                     <th>ID</th>
@@ -32,7 +32,7 @@
                         <td>
                             {{ prod.name }}
                             <br>
-                            <img style="display: none" onload="$(this).show();" width="150" src="{{ asset('uploads/images/' ~ prod.pic) }}" />
+                            {% include 'image_wrapper.html.twig' with {'product' : prod} %}
                         </td>
                         <td>
                             {{ prod.description }}
@@ -40,9 +40,9 @@
                         <td>
                             {{ prod.price }}
                         </td>
-                        <td>
-                            <a href="products/edit/{{ prod.id }}">Edit</a>
-                            <a href="products/remove/{{ prod.id }}" onclick="if(!confirm('Are you shure?')) return false;">Remove</a>
+                        <td class="products-options text-right">
+                            <button onclick="location.href='products/edit/{{ prod.id }}'" class="btn btn-xs btn-primary btn-edit">Edit</button>
+                            <button onclick="if(confirm('Are you shure?')) location.href='products/remove/{{ prod.id }}'" class="btn btn-xs btn-danger btn-remove">Remove</button>
                         </td>
                     </tr>
                 {% endfor %}

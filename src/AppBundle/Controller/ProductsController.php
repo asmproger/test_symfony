@@ -47,6 +47,7 @@ class ProductsController extends Controller
         $id = $product->getId();*/
         // replace this example code with whatever you need
         return $this->render('products/index.html.twig', [
+            'active_menu' => 'products',
             'isAdded' => $isAdded,
             'products' => $products,
             'base_dir' => realpath($this->getParameter('kernel.project_dir')) . DIRECTORY_SEPARATOR,
@@ -96,6 +97,7 @@ class ProductsController extends Controller
         }
 
         return $this->render('products/add.html.twig', [
+            'active_menu' => 'products',
             'form' => $form->createView()
         ]);
     }
@@ -135,6 +137,7 @@ class ProductsController extends Controller
         }
 
         return $this->render('products/add.html.twig', [
+            'active_menu' => 'products',
             'form' => $form->createView()
         ]);
     }

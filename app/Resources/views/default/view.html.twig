@@ -11,7 +11,7 @@
     </p>
     <p>
         {% if product.pic %}
-            {{ asset('/upload/images/') ~ product.pic }}
+            {{ include('image_wrapper.html.twig') }}
         {% endif %}
     </p>
 </div>

@@ -1,15 +1,23 @@
-<div class="text-right user-menu-wrapper">
-    <a style="float: left;" href="/app_dev.php">Main Page</a>
-    {% if is_granted('ROLE_ADMIN') %}
-        <a style="float: left; margin-left: 20px;" href="/app_dev.php/products">Manage Products</a>
-    {% endif %}
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        Hello, {{ app.user.username }}!
-        <br>
-        <a href="/app_dev.php/logout">Logout</a>
-    {% else %}
-        <a href="/app_dev.php/login">Sign in</a>
-        |
-        <a href="/app_dev.php/register">Create account</a>
-    {% endif %}
-</div>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="{%  if active_menu == 'default' %} active {% endif %}"><a href="/app_dev.php">Main Page</a></li>
+                <li class="{%  if active_menu == 'products' %} active {% endif %}"><a href="/app_dev.php/products">Manage Products</a></li>
+            </ul>
+            <p class="navbar-text navbar-right">
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    Hello, {{ app.user.username }}!
+                    (<a class="navbar-link logout-link" href="/app_dev.php/logout">
+                        <small>Logout</small>
+                    </a>)
+                {% else %}
+                    <a class="navbar-link" href="/app_dev.php/login">Sign in</a>
+                    |
+                    <a class="navbar-link" href="/app_dev.php/register">Create account</a>
+                {% endif %}
+            </p>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>

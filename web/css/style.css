@@ -1,6 +1,33 @@
 #currency-styles ul {
     list-style: none;
+    margin: 0;
+    padding: 0;
 }
 #currency-styles span {
     font-weight: bold;
+}
+#currency-styles .panel-heading {
+    cursor: pointer;
+}
+#form_pic {
+    padding: 0;
+    border: none;
+}
+img.product-image-preview {
+    max-width: 120px;
+    display: none;
+}
+
+.products-options a {
+    padding: 3px 5px;
+    display: inline-block;
+}
+.products-options a:hover {
+    text-decoration: none;
+}
+.products-options a.opt-edit {
+    float: right;
+}
+.products-options a.opt-remove {
+    float: right;
 }

@@ -6,7 +6,8 @@
         <td>
             <a href="javascript://" class="product-item" data-id="{{ prod.id }}">{{ prod.name }}</a>
             <br>
-            <img style="display: none" onload="$(this).show();" width="150" src="{{ asset('uploads/images/' ~ prod.pic) }}" />
+            {#<img class="product-image-preview" onload="$(this).show();" width="150" src="{{ asset('uploads/images/' ~ prod.pic) }}" />#}
+            {% include 'image_wrapper.html.twig' with {'product' : prod} %}
         </td>
         <td>
             {{ prod.description }}
@@ -18,7 +19,7 @@
         {% endif %}
         {% if is_granted('ROLE_ADMIN') %}
             <td>
-                <a href="products/edit/{{ prod.id }}">Edit</a>
+                <button onclick="location.href='products/edit/{{ prod.id }}'" class="btn btn-xs btn-primary btn-edit">Edit</button>
             </td>
         {% endif %}
     </tr>
