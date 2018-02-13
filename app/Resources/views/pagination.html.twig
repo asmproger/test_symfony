@@ -3,7 +3,7 @@
     $(document).on('click', '.custom-paginator a', function (e) {
         var self = $(this);
         var page = parseInt(self.data('page'));
-        if(page == currentPage) {
+        if (page == currentPage) {
             return;
         }
         $.ajax({
@@ -18,8 +18,8 @@
             },
             success: function (response) {
                 $('#products-table').find('tbody').html(response.html);
-                $('.custom-paginator a.current-page').removeClass('current-page');
-                self.addClass('current-page');
+                $('.custom-paginator li').removeClass('active');
+                self.parent().addClass('active');
                 currentPage = page;
             },
             complete: function () {
@@ -29,13 +29,14 @@
         return false;
     });
 </script>
-<div class="text-center custom-paginator">
-    {% for i in 1..pages %}
-        {% if i == currentPage %}
-            <a data-page="{{ i }}" class="current-page" href="javascript://">{{ i }}</a>
-        {% else %}
-            <a data-page="{{ i }}" href="?page={{ i }}">{{ i }}</a>
-        {% endif %}
-
-    {% endfor %}
-</div>
+<nav class="custom-paginator text-center" aria-label="Page navigation">
+    <ul class="pagination">
+        {% for i in 1..pages %}
+            {% if i == currentPage %}
+                <li class="active"><a data-page="{{ i }}" href="javascript://">{{ i }}</a></li>
+            {% else %}
+                <li><a data-page="{{ i }}" href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</nav>

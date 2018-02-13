@@ -1,6 +1,11 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <script>
+        $(document).on('click', '.product-view img', function(e) {
+            var $modal = $('#image-preview-modal');
+            $modal.find('img').attr('src', $(this).attr('src'));
+            $modal.modal('show');
+        });
         $(document).on('click', '.back-to-list', function (e) {
             var $container = $('#container-products');
             var $product = $('#container-product');
@@ -40,7 +45,7 @@
         <div id="container">
             {{ include('user_menu.html.twig') }}
             <br>
-            <div class="panel panel-default" id="currency-styles">
+            <div class="panel panel-primary" id="currency-styles">
                 <div class="panel-heading" aria-expanded="false" data-toggle="collapse" data-target="#currencies-panel">
                     <h3 class="panel-title">Currencies values</h3>
                 </div>

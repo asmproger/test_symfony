@@ -23,7 +23,7 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         $page = $request->get('page', 1);
-        $ipp = 10;
+        $ipp = 3;
 
         /**
          * @var Doctrine\ORM\QueryBuilder $builder

@@ -19,7 +19,7 @@
         {% endif %}
         {% if is_granted('ROLE_ADMIN') %}
             <td>
-                <button onclick="location.href='products/edit/{{ prod.id }}'" class="btn btn-xs btn-primary btn-edit">Edit</button>
+                <button onclick="location.href='/app_dev.php/products/edit/{{ prod.id }}'" class="btn btn-xs btn-primary btn-edit">Edit</button>
             </td>
         {% endif %}
     </tr>

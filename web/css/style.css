@@ -31,3 +31,13 @@ img.product-image-preview {
 .products-options a.opt-remove {
     float: right;
 }
+.product-view img {
+    cursor: pointer;
+}
+#image-preview-modal .modal-dialog {
+    width: 700px;
+}
+
+#image-preview-modal .modal-dialog img {
+    width: 100%;
+}
