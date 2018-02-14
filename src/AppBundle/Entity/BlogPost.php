@@ -45,7 +45,7 @@ class BlogPost
     /**
      * @var string
      *
-     * @ORM\Column(name="body", type="text")
+     * @ORM\Column(name="body", type="text", nullable=true)
      */
     private $body;
 
@@ -68,14 +68,14 @@ class BlogPost
     /**
      * @var string
      *
-     * @ORM\Column(name="short", type="text")
+     * @ORM\Column(name="short", type="text", nullable=true)
      */
     private $short;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="draft", type="boolean")
+     * @ORM\Column(name="draft", type="boolean", nullable=true)
      */
     private $draft = false;
 

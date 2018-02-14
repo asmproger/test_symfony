@@ -162,7 +162,7 @@ class Product
 
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $pic;
 }
