@@ -66,22 +66,24 @@ class ProductsController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $product = $form->getData();
 
             /**
              * @var \Symfony\Component\HttpFoundation\File\UploadedFile $file
              */
-            // gilr uploading with custom service
+            // image uploading with custom service
             $file = $newProduct->getPic();
-            $newName = $cU->upload($file);
+            if ($file) {
+                $newName = $cU->upload($file);
+                $product->setPic($newName);
+            }
             /*$newName = md5(time()) . '.' . $file->guessExtension();
             $file->move(
                 $this->getParameter('images_directory'),
                 $newName
             );*/
 
-            $em = $this->getDoctrine()->getManager();
-            $product = $form->getData();
-            $product->setPic($newName);
 
             $em->getConnection()->beginTransaction();
             try {
@@ -118,10 +120,13 @@ class ProductsController extends Controller
 
             // file processed without services
             $file = $product->getPic();
-            $newName = md5(time()) . '.' . $file->guessExtension();
-            $file->move($this->getParameter('images_directory'), $newName);
-            $product = $form->getData();
-            $product->setPic($newName);
+            if ($file) {
+                $newName = md5(time()) . '.' . $file->guessExtension();
+                $file->move($this->getParameter('images_directory'), $newName);
+                $product = $form->getData();
+                $product->setPic($newName);
+            }
+
             $em = $this->getDoctrine()->getManager();
             $em->getConnection()->beginTransaction();
             try {
@@ -132,7 +137,7 @@ class ProductsController extends Controller
                 return $this->redirectToRoute('products_index', []);
             } catch (\Exception $e) {
                 $em->getConnection()->rollback();
-                throw new \Exception('Error while product editing');
+                throw $e;//new \Exception('Error while product editing');
             }
         }
 
@@ -185,7 +190,7 @@ class ProductsController extends Controller
             ])
             ->add('pic', FileType::class, [
                 'label' => 'Image:',
-                'required' => 1,
+                'required' => false,
                 'data_class' => null
             ])
             ->add('submit', SubmitType::class, [

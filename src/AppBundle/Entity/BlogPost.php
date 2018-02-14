@@ -50,6 +50,29 @@ class BlogPost
     private $body;
 
     /**
+     * @return string
+     */
+    public function getShort()
+    {
+        return $this->short;
+    }
+
+    /**
+     * @param string $short
+     */
+    public function setShort($short)
+    {
+        $this->short = $short;
+    }
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="short", type="text")
+     */
+    private $short;
+
+    /**
      * @var bool
      *
      * @ORM\Column(name="draft", type="boolean")
