@@ -79,6 +79,10 @@ services:
         arguments:
             $doctrine: '@doctrine'
 
+    AppBundle\DataFixtures\AppFixtures:
+        public: true
+        tags: [doctrine.fixture.orm]
+
 #    custom_command:
 #        public: true
 #        class: AppBundle\Command\CustomCommand

@@ -6,7 +6,7 @@
  * Time: 1:59 PM
  */
 
-namespace App\DataFixtures;
+namespace AppBundle\DataFixtures;
 
 use AppBundle\Entity\Product;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -21,6 +21,7 @@ class AppFixtures extends Fixture
             $product = new Product();
             $product->setName('product '.$i);
             $product->setPrice(mt_rand(10, 100));
+            $product->setDescription('descr - ' . md5(mt_rand(10, 100)));
             $manager->persist($product);
         }
 
